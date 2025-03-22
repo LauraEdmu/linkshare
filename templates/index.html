@@ -4,11 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Quick Links</title>
-  <div class="category-nav">
-    {% for cat in categories %}
-      <a href="{{ url_for('category_view', category=cat) }}" class="category-link">{{ cat }}</a>
-    {% endfor %}
-  </div>  
+  <form class="category-dropdown" onchange="location = this.category.value;">
+    <label for="category">📂 Browse Category:</label>
+    <select name="category" id="category">
+      <option disabled selected>Choose one...</option>
+      {% for cat in categories %}
+        <option value="{{ url_for('category_view', category=cat) }}">{{ cat }}</option>
+      {% endfor %}
+    </select>
+  </form>  
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <script>
     // Load theme preference before page renders

@@ -112,4 +112,22 @@
     background: var(--text);
     color: var(--bg);
   }
+  .category-dropdown {
+    margin-bottom: 2rem;
+    font-size: 1rem;
+  }
   
+  .category-dropdown select {
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    border: 1px solid var(--text);
+    background: var(--card-bg);
+    color: var(--text);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  
+  .category-dropdown label {
+    margin-right: 0.5rem;
+  }
+    
