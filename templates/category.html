@@ -3,15 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Quick Links</title>
-  <div class="category-nav">
-    {% for cat in categories %}
-      <a href="{{ url_for('category_view', category=cat) }}" class="category-link">{{ cat }}</a>
-    {% endfor %}
-  </div>  
+  <title>{{ category | title }} Links</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <script>
-    // Load theme preference before page renders
     if (localStorage.getItem('theme') === 'dark') {
       document.documentElement.classList.add('dark');
     }
@@ -21,7 +15,8 @@
   <button id="darkToggle" class="toggle-btn" aria-label="Toggle dark mode">🌓 Toggle Dark Mode</button>
 
   <div class="container">
-    <h1>🌐 Quick Links</h1>
+    <h1>📁 {{ category | title }} Links</h1>
+    <a href="/" class="category-link">← Back to all</a>
     <div class="grid">
       {% for link in links %}
         <a class="card" href="{{ link.url }}" target="_blank">

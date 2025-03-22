@@ -1,23 +1,26 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, abort
 import json
-import os
 
 app = Flask(__name__)
 
-# Load links from JSON file initially
-with open("links.json", "r") as f:
-    links = json.load(f)
+def load_links():
+    with open("links.json", "r") as f:
+        return json.load(f)
 
 @app.route("/")
 def index():
-    with open("links.json", "r") as f:
-        links = json.load(f)
-    return render_template("index.html", links=links)
+    links = load_links()
+    categories = sorted(set(link.get("category", "Uncategorised") for link in links))
+    return render_template("index.html", links=links, categories=categories)
 
+@app.route("/category/<category>")
+def category_view(category):
+    links = load_links()
+    filtered = [link for link in links if link.get("category", "").lower() == category.lower()]
+    if not filtered:
+        abort(404)
+    return render_template("category.html", category=category, links=filtered)
 
-@app.route("/api/links")
-def api_links():
-    return jsonify(links)
 
 if __name__ == "__main__":
     from waitress import serve

@@ -91,4 +91,25 @@
     font-size: 1rem;
     word-break: break-word;
   }
+
+  .category-nav {
+    margin-bottom: 2rem;
+  }
+  
+  .category-link {
+    display: inline-block;
+    margin: 0.25rem 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--card-bg);
+    color: var(--text);
+    border: 1px solid var(--text);
+    border-radius: 1rem;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  
+  .category-link:hover {
+    background: var(--text);
+    color: var(--bg);
+  }
   
