@@ -4,25 +4,28 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Quick Links</title>
-  <form class="category-dropdown" onchange="location = this.category.value;">
-    <label for="category">📂 Browse Category:</label>
-    <select name="category" id="category">
-      <option disabled selected>Choose one...</option>
-      {% for cat in categories %}
-        <option value="{{ url_for('category_view', category=cat) }}">{{ cat }}</option>
-      {% endfor %}
-    </select>
-  </form>  
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <script>
-    // Load theme preference before page renders
     if (localStorage.getItem('theme') === 'dark') {
       document.documentElement.classList.add('dark');
     }
   </script>
 </head>
 <body>
-  <button id="darkToggle" class="toggle-btn" aria-label="Toggle dark mode">🌓 Toggle Dark Mode</button>
+  <div class="top-bar">
+    <button id="darkToggle" class="toggle-btn" aria-label="Toggle dark mode">🌓 Toggle Dark Mode</button>
+
+    <form class="category-dropdown" onchange="location = this.category.value;">
+      <label for="category">📂</label>
+      <select name="category" id="category">
+        <option value="{{ url_for('index') }}" {% if not current_category %}selected{% endif %}>All</option>
+        {% for cat in categories %}
+          <option value="{{ url_for('category_view', category=cat) }}"
+            {% if current_category == cat %}selected{% endif %}>{{ cat }}</option>
+        {% endfor %}
+      </select>
+    </form>
+  </div>
 
   <div class="container">
     <h1>🌐 Quick Links</h1>

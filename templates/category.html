@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>{{ category | title }} Links</title>
+  <title>Quick Links</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <script>
     if (localStorage.getItem('theme') === 'dark') {
@@ -12,11 +12,23 @@
   </script>
 </head>
 <body>
-  <button id="darkToggle" class="toggle-btn" aria-label="Toggle dark mode">🌓 Toggle Dark Mode</button>
+  <div class="top-bar">
+    <button id="darkToggle" class="toggle-btn" aria-label="Toggle dark mode">🌓 Toggle Dark Mode</button>
+
+    <form class="category-dropdown" onchange="location = this.category.value;">
+      <label for="category">📂</label>
+      <select name="category" id="category">
+        <option value="{{ url_for('index') }}" {% if not current_category %}selected{% endif %}>All</option>
+        {% for cat in categories %}
+          <option value="{{ url_for('category_view', category=cat) }}"
+            {% if current_category == cat %}selected{% endif %}>{{ cat }}</option>
+        {% endfor %}
+      </select>
+    </form>
+  </div>
 
   <div class="container">
     <h1>📁 {{ category | title }} Links</h1>
-    <a href="/" class="category-link">← Back to all</a>
     <div class="grid">
       {% for link in links %}
         <a class="card" href="{{ link.url }}" target="_blank">
