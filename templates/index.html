@@ -14,6 +14,7 @@
 <body>
   <div class="top-bar">
     <button id="darkToggle" class="toggle-btn" aria-label="Toggle dark mode">🌓 Toggle Dark Mode</button>
+    <button onclick="to5000()" class="toggle-btn">🔌 Go to Wordle Glob</button>
 
     <form class="category-dropdown" onchange="location = this.category.value;">
       <label for="category">📂</label>
@@ -46,6 +47,13 @@
       const dark = root.classList.toggle('dark');
       localStorage.setItem('theme', dark ? 'dark' : 'light');
     });
+
+    function to5000() {
+	    const host = window.location.hostname;
+	    const protocol = window.location.protocol;
+	    window.location.href = `${protocol}//${host}:5000`;
+  }
+
   </script>
 </body>
 </html>
