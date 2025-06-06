@@ -23,6 +23,8 @@ def category_view(category):
         abort(404)
     return render_template("category.html", category=category, links=filtered, categories=categories, current_category=category)
 
+### File Serving ###
+
 @app.route("/zshrc")
 def serve_zshrc():
     filepath = os.path.expanduser("~/.zshrc")
@@ -30,7 +32,6 @@ def serve_zshrc():
         return send_file(filepath, mimetype="text\plain", as_attachment=False)
     else:
         abort(404)
-
 
 @app.route("/ssh")
 def serve_sshkey():
@@ -40,9 +41,13 @@ def serve_sshkey():
     else:
         abort(404)
 
+### Redirects ###
+
 @app.route("/git")
 def git_redirect():
     return redirect("https://github.com/LauraEdmu", code=302)
+
+### Full Pages ###
 
 @app.route("/discord")
 def discord():
@@ -103,6 +108,66 @@ def discord():
     </html>
     '''
 
+@app.route("/github")
+def github():
+    return '''
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>My GitHub</title>
+        <style>
+            body {
+                background-color: #0d1117;
+                color: #c9d1d9;
+                font-family: 'Segoe UI', 'Liberation Sans', Arial, sans-serif;
+                text-align: center;
+                padding-top: 4em;
+            }
+            .container {
+                background: #161b22;
+                border-radius: 1em;
+                display: inline-block;
+                padding: 2em 3em;
+                box-shadow: 0 0 16px #010409cc;
+                border: 1px solid #30363d;
+            }
+            img {
+                width: 96px;
+                height: 96px;
+                border-radius: 50%;
+                margin-bottom: 1em;
+                border: 2px solid #30363d;
+                background: #010409;
+            }
+            .github-name {
+                font-size: 1.5em;
+                letter-spacing: 0.5px;
+                color: #58a6ff;
+                margin-top: 0.25em;
+                font-weight: 600;
+            }
+            .github-name a {
+                color: #58a6ff;
+                text-decoration: none;
+                transition: color 0.2s;
+            }
+            .github-name a:hover {
+                color: #79c0ff;
+                text-decoration: underline;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <img src="https://avatars.githubusercontent.com/u/98789693?v=4" alt="My PFP">
+            <div class="github-name" id="github-username">
+                <a href="https://github.com/LauraEdmu" target="_blank" rel="noopener">LauraEdmu</a>
+            </div>
+        </div>
+    </body>
+    </html>
+    '''
 
 if __name__ == "__main__":
     from waitress import serve

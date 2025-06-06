@@ -14,7 +14,9 @@
 <body>
   <div class="top-bar">
     <button id="darkToggle" class="toggle-btn" aria-label="Toggle dark mode">🌓 Toggle Dark Mode</button>
-    <button onclick="to5000()" class="toggle-btn">🔌 Go to Wordle Glob</button>
+    <!-- <button onclick="to5000()" class="toggle-btn">🔌 Go to Wordle Glob</button> -->
+     <button onclick="emailMe()" class="toggle-btn">📧 Email Me</button> <!--Clickable email. The box below will be for copying address instead-->
+    <button onclick="copyEmail(this)" class="toggle-btn">📋 Copy Email</button>
 
     <form class="category-dropdown" onchange="location = this.category.value;">
       <label for="category">📂</label>
@@ -53,6 +55,29 @@
 	    const protocol = window.location.protocol;
 	    window.location.href = `${protocol}//${host}:5000`;
   }
+    
+    function emailMe() {
+      const email = 'l@laura.to';
+      const subject = 'From Quick Links Page';
+      const body = 'I wanted to reach out to you via the Quick Links page.';
+      window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    }
+
+    function copyEmail(button) {
+    navigator.clipboard.writeText('l@laura.to').then(() => {
+        const originalText = button.textContent;
+        button.textContent = '✅ Copied!';
+        setTimeout(() => {
+            button.textContent = originalText;
+        }, 2000);
+    }).catch(err => {
+        console.error('Clipboard copy failed:', err);
+        button.textContent = '❌ Failed!';
+        setTimeout(() => {
+            button.textContent = '📋 Copy Email';
+        }, 2000);
+    });
+}
 
   </script>
 </body>
