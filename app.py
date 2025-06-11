@@ -41,11 +41,35 @@ def serve_sshkey():
     else:
         abort(404)
 
+@app.route("/nezumi")
+def serve_sshkey_nezumi():
+    filepath = os.path.expanduser("~/web/nezumi.pub")
+    if os.path.isfile(filepath):
+        return send_file(filepath, mimetype="text\plain", as_attachment=False)
+    else:
+        abort(404)
+
+@app.route("/volunteer")
+def serve_volunteer_pdf():
+    filepath = os.path.join(os.path.dirname(__file__), "static", "volunteer.pdf")
+    if os.path.isfile(filepath):
+        return send_file(filepath, mimetype="application/pdf", as_attachment=True)
+    else:
+        abort(404)
+
 ### Redirects ###
 
 @app.route("/git")
 def git_redirect():
     return redirect("https://github.com/LauraEdmu", code=302)
+
+@app.route("/admin")
+def rick_r():
+    return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+
+@app.route("/win")
+def massgrave():
+    return redirect("https://get.activated.win")
 
 ### Full Pages ###
 
